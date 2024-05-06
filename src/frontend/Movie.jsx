@@ -1,5 +1,5 @@
 import React from "react";
-import {Card, Container, Image, Stack} from "react-bootstrap";
+import {Button, Card, Container, Image, Stack} from "react-bootstrap";
 
 
 
@@ -9,10 +9,17 @@ const Movie = ({name}) => {
 
     return (
         <>
-            <Stack >
-                <Image src='https://placekitten.com/200/300' alt='This is a kitten'></Image>
-                <h1>{name}</h1>
-            </Stack>
+            <Card style={{ width: '18rem' }}>
+                <Card.Img variant="top" src="https://picsum.photos/200/300" />
+                <Card.Body>
+                    <Card.Title>Card Title</Card.Title>
+                    <Card.Text>
+                        Some quick example text to build on the card title and make up the
+                        bulk of the card's content.
+                    </Card.Text>
+                    <Button variant="primary">Add to basket</Button>
+                </Card.Body>
+            </Card>
         </>
     )
 }

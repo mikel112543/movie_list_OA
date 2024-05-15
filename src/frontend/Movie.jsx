@@ -1,25 +1,18 @@
 import React from "react";
-import {Button, Card, Container, Image, Stack} from "react-bootstrap";
+import { Image, Stack} from "react-bootstrap";
 
 
 
 // Regular Function Definition
-const Movie = ({name}) => {
-    // ---------
+const Movie = ({name, year, poster}) => {
+    const posterPath = `https://image.tmdb.org/t/p/original${poster}`
 
     return (
         <>
-            <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="https://picsum.photos/200/300" />
-                <Card.Body>
-                    <Card.Title>Card Title</Card.Title>
-                    <Card.Text>
-                        Some quick example text to build on the card title and make up the
-                        bulk of the card's content.
-                    </Card.Text>
-                    <Button variant="primary">Add to basket</Button>
-                </Card.Body>
-            </Card>
+            <Stack>
+                <Image src={posterPath} alt='https://picsum.photos/100/150'></Image>
+                <h4>{name}, {year}</h4>
+            </Stack>
         </>
     )
 }

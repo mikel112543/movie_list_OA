@@ -1,13 +1,31 @@
-
-import Birthday from "./Movie.jsx";
-import SameName from "./Movie.jsx";
 import Movie from "./Movie.jsx";
+import axios from "axios";
 
 import {Button, Col, Container, Dropdown, Navbar, NavbarText, Row} from "react-bootstrap";
+import {useEffect, useState} from "react";
+import * as console from "node:console";
 
 function App() {
 
+    const [loading, setLoading] = useState(false)
+    const [movies, setMovies] = useState([]);
     const names = ['Michael', 'Dan', 'John', 'd', 't', 'r', '5', '4', '5', '6', '7', '8', '9'];
+
+    useEffect(() => {
+        const fetchMovies = async () => {
+            setLoading(true)
+            try {
+                const response = await axios.get(`http://localhost:3001/movie`);
+                const {results} = response.data;
+                setMovies(results);
+                setLoading(false);
+            } catch (error) {
+                console.log(error);
+            }
+            setLoading(false);
+        }
+        fetchMovies();
+    }, []);
 
     return (
         <>
@@ -23,15 +41,20 @@ function App() {
                     </Button>
                 </div>
             </Navbar>
-            <Container fluid style={{paddingTop: '80px'}}>
-                <Row>
-                    {names.map((name) => (
-                        <Col>
-                            <Movie name={name}/>
-                        </Col>
-                    ))}
-                </Row>
-            </Container>
+            {loading ? (
+                <h3>Loading</h3>
+            ) : (
+                <Container fluid style={{paddingTop: '80px'}}>
+                    <Row>
+                        {movies.map((movie) => (
+                            <Col xs={2} style={{marginBottom: '20px'}}>
+                            <Movie name={movie.original_title} year={movie.release_date} poster={movie.poster_path}/>
+                            </Col>
+                        ))}
+                    </Row>
+                </Container>
+            )}
+
         </>
     )
 }

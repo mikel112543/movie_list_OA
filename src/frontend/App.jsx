@@ -8,6 +8,7 @@ import * as console from "node:console";
 function App() {
 
     const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(null)
     const [movies, setMovies] = useState([]);
     const names = ['Michael', 'Dan', 'John', 'd', 't', 'r', '5', '4', '5', '6', '7', '8', '9'];
 
@@ -15,14 +16,15 @@ function App() {
         const fetchMovies = async () => {
             setLoading(true)
             try {
-                const response = await axios.get(`http://localhost:3001/movie`);
-                const {results} = response.data;
+                const response = await axios.get(`http://localhost:5000/movies/popularMovies`);
+                const results = response.data;
                 setMovies(results);
                 setLoading(false);
             } catch (error) {
-                console.log(error);
+                setError(error.message)
+            } finally {
+                setLoading(false);
             }
-            setLoading(false);
         }
         fetchMovies();
     }, []);
@@ -41,19 +43,21 @@ function App() {
                     </Button>
                 </div>
             </Navbar>
-            {loading ? (
-                <h3>Loading</h3>
-            ) : (
                 <Container fluid style={{paddingTop: '80px'}}>
+                    {loading ? (
+                        <h3>Loading</h3>
+                    ) : error ? (
+                        <h3>Error: {error}</h3>
+                    ) : (
                     <Row>
                         {movies.map((movie) => (
                             <Col xs={2} style={{marginBottom: '20px'}}>
-                            <Movie name={movie.original_title} year={movie.release_date} poster={movie.poster_path}/>
+                            <Movie title={movie.title} popularity={movie.popularity} releaseDate={movie.releaseDate} posterPath={movie.posterPath}/>
                             </Col>
                         ))}
                     </Row>
+                    )}
                 </Container>
-            )}
 
         </>
     )

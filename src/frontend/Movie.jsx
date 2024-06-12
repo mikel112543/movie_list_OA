@@ -4,14 +4,14 @@ import '../frontend/styles/movie.css'
 
 
 // Regular Function Definition
-const Movie = ({name, year, poster}) => {
-    const posterPath = `https://image.tmdb.org/t/p/original${poster}`
+const Movie = ({title, popularity, releaseDate, posterPath}) => {
 
     return (
         <>
             <Stack>
                 <Image className='image-hover-effect' src={posterPath} alt='https://picsum.photos/100/150'></Image>
-                <h4>{name}, {year}</h4>
+                <h4>{title}</h4>
+                <h5>Released On: {releaseDate}</h5>
             </Stack>
         </>
     )

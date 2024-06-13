@@ -16,7 +16,7 @@ function App() {
         const fetchMovies = async () => {
             setLoading(true)
             try {
-                const response = await axios.get(`http://localhost:5000/movies/popularMovies`);
+                const response = await axios.get(`http://localhost:4000/movies/popularMovies`);
                 const results = response.data;
                 setMovies(results);
                 setLoading(false);

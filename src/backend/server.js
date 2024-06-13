@@ -7,7 +7,6 @@ const app = express();
 dotenv.config();
 app.use(cors())
 
-
 const PORT = process.env.EXPRESS_PORT || 4000;
 
 app.use('/movies', movies)
